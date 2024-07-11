@@ -9,6 +9,11 @@ import py.edu.ucsa.ejb.entities.Torneo;
 @RequestScoped
 public class TorneoDaoImpl extends AbstracDao<Long, Torneo> implements ITorneoDao {
 
+	/*
+	public TorneoDaoImpl() {
+		super(Torneo.class);
+	}
+	*/
 	public TorneoDaoImpl(Class<Torneo> clazz) {
 		super(clazz);
 		// TODO Auto-generated constructor stub

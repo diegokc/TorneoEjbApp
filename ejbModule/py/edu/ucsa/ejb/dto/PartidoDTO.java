@@ -1,8 +1,10 @@
 package py.edu.ucsa.ejb.dto;
 
+import java.io.Serializable;
 
-public class PartidoDTO {
+public class PartidoDTO implements Serializable {
 
+	private static final long serialVersionUID = 1351591322651472641L;
 
 	private Integer id;
 	

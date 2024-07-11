@@ -21,6 +21,8 @@ public class PartidoEjbImpl implements PartidoEjbRemote {
 	@Named("partidoDAO")
 	private IPartidoDao dao;
 	
+	public PartidoEjbImpl() {}
+	
 	@Override
 	public List<PartidoDTO> finAll() {
 		Stream<Partido> partidos= StreamSupport.stream(dao.findAll().spliterator(),false);

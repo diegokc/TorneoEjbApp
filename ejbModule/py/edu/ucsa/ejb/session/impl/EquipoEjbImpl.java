@@ -17,9 +17,9 @@ import py.edu.ucsa.ejb.entities.Jugador;
 import py.edu.ucsa.ejb.session.EquipoEjbRemote;
 
 @Stateless
-@Transactional
 @LocalBean
-public class EquipoEjbRemoteImpl  implements EquipoEjbRemote {
+@Transactional
+public class EquipoEjbImpl  implements EquipoEjbRemote {
 
 	@Inject
 	@Named("equipoDAO")
@@ -29,6 +29,9 @@ public class EquipoEjbRemoteImpl  implements EquipoEjbRemote {
 	@Named("jugadorDAO")
 	private IJugadorDao jDao;
 	
+	public EquipoEjbImpl(){
+		
+	}
 	
 	@Override
 	public List<EquipoDTO> findAll() {

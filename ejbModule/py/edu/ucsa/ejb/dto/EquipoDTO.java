@@ -1,14 +1,16 @@
 package py.edu.ucsa.ejb.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import py.edu.ucsa.ejb.entities.Jugador;
 
-public class EquipoDTO {
+public class EquipoDTO implements Serializable {
 
-
+	private static final long serialVersionUID = -5646141133846236444L;
+	
 	private Integer id;
 	private String nombre;
 	private String slogan;

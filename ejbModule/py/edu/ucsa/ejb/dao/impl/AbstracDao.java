@@ -21,6 +21,10 @@ public abstract class AbstracDao<PK extends Serializable, T> implements IGeneric
 	@PersistenceContext(name = "TorneoJPA")
 	protected EntityManager entityManager;
 
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Iterable<T> findAll() {
 		return this.entityManager.createNamedQuery(persistentClass.getSimpleName() + ".findAll").getResultList();

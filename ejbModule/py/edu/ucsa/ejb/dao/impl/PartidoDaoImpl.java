@@ -9,6 +9,11 @@ import py.edu.ucsa.ejb.entities.Partido;
 @RequestScoped
 public class PartidoDaoImpl extends AbstracDao<Long, Partido> implements IPartidoDao {
 
+	public PartidoDaoImpl() {
+		super(Partido.class);
+	}
+	
+	
 	public PartidoDaoImpl(Class<Partido> clazz) {
 		super(clazz);
 		// TODO Auto-generated constructor stub

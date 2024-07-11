@@ -22,7 +22,9 @@ public class TorneoEjbImpl implements TorneoEjbRemote {
 	@Named("torneoDAO")
 	private ITorneoDao dao;
 	
-		@Override
+	public TorneoEjbImpl() {}
+	
+	@Override
 	public List<TorneoDTO> findAll() {
 		Stream<Torneo> torneos = StreamSupport.stream(dao.findAll().spliterator(),false);
 		return torneos.map(Torneo::toDTO).toList();

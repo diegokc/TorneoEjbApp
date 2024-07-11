@@ -9,6 +9,10 @@ import py.edu.ucsa.ejb.entities.Equipo;
 @RequestScoped
 public class EquipoDaoImpl extends AbstracDao<Long, Equipo> implements IEquipoDao {
 
+	public EquipoDaoImpl() {
+		super(Equipo.class);
+	}
+	
 	public EquipoDaoImpl(Class<Equipo> clazz) {
 		super(clazz);
 		// TODO Auto-generated constructor stub

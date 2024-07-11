@@ -1,7 +1,10 @@
 package py.edu.ucsa.ejb.dto;
 
-public class TorneoDTO {
+import java.io.Serializable;
 
+public class TorneoDTO implements Serializable {
+
+	private static final long serialVersionUID = -7596225477090541657L;
 
 	private Integer id;
 	

@@ -15,11 +15,13 @@ import py.edu.ucsa.ejb.session.JugadorEjbRemote;
 
 @Stateless
 @LocalBean
-public class JugadorEjbRemoteImpl implements JugadorEjbRemote {
+public class JugadorEjbImpl implements JugadorEjbRemote {
 
 	@Inject
 	@Named("jugadorDAO")
 	private IJugadorDao jdao;
+	
+	public JugadorEjbImpl() {}
 	
 	@Override
 	public List<JugadorDTO> findAll() {
