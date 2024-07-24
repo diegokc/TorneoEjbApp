@@ -19,6 +19,7 @@ import py.edu.ucsa.ejb.dto.JugadorDTO;
 @Entity
 @Table(name = "jugadores")
 @NamedQuery(name = "Jugador.findAll", query = " SELECT e FROM Jugador e ORDER BY e.nroFicha ASC")
+@NamedQuery(name = "Jugador.findNombre", query = " SELECT e FROM Jugador e ORDER BY e.nroFicha ASC")
 public class Jugador implements Serializable {
 
 	private static final long serialVersionUID = 584837202246365146L;
@@ -33,7 +34,7 @@ public class Jugador implements Serializable {
 	@Column(name = "fecha_de_nacimiento", columnDefinition = "DATE")
 	private LocalDate fechaDeNacimiento;
 
-	@Column(name = "nro_ficha", columnDefinition = "DATE")
+	@Column(name = "nro_ficha")
 	private Long nroFicha;
 
 	private String nacionalidad;
@@ -45,33 +46,7 @@ public class Jugador implements Serializable {
 	private Equipo equipo;
 
 	public Jugador() {
-	}
-
-	public Jugador(Integer id, String nombres, String apellidos, LocalDate fechaDeNacimiento, Long nroFicha,
-			String nacionalidad, String telefono, String email, Equipo equipo) {
 		super();
-		this.id = id;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.fechaDeNacimiento = fechaDeNacimiento;
-		this.nroFicha = nroFicha;
-		this.nacionalidad = nacionalidad;
-		this.telefono = telefono;
-		this.email = email;
-		this.equipo = equipo;
-	}
-
-	public Jugador(Integer id, String nombres, String apellidos, LocalDate fechaDeNacimiento, Long nroFicha,
-			String nacionalidad, String telefono, String email) {
-		super();
-		this.id = id;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.fechaDeNacimiento = fechaDeNacimiento;
-		this.nroFicha = nroFicha;
-		this.nacionalidad = nacionalidad;
-		this.telefono = telefono;
-		this.email = email;
 	}
 
 	public Integer getId() {
@@ -147,6 +122,9 @@ public class Jugador implements Serializable {
 	}
 
 	public JugadorDTO toDTO() {
+		
+		System.out.println("Ejecucio: JugadorDTO toDTO() ");
+		
 		JugadorDTO dto = new JugadorDTO();
 		dto.setId(this.getId());
 
@@ -160,14 +138,18 @@ public class Jugador implements Serializable {
 		dto.setNacionalidad(this.getNacionalidad());
 		dto.setTelefono(this.getTelefono());
 		dto.setEmail(this.getEmail());
+		/*
 		if (!Objects.isNull(this.getEquipo())) {
 			dto.setEquipo(this.getEquipo().toDTO());
 		}
-
+		*/
+		System.out.println("fin Ejecucio: JugadorDTO toDTO() ");
 		return dto;
 	}
 
 	public JugadorDTO toListaDTO() {
+		System.out.println("Ejecucio: JugadorDTO toListaDTO() ");
+		
 		JugadorDTO dto = new JugadorDTO();
 		dto.setId(this.getId());
 
@@ -182,10 +164,15 @@ public class Jugador implements Serializable {
 		dto.setTelefono(this.getTelefono());
 		dto.setEmail(this.getEmail());
 
+		System.out.println("fin Ejecucio: JugadorDTO toListaDTO() ");
+		
 		return dto;
 	}
-
+/*
 	public JugadorDTO toListaBusquedaDTO() {
+		
+		System.out.println("Ejecucio: JugadorDTO toListaBusquedaDTO() ");
+		
 		JugadorDTO dto = new JugadorDTO();
 		dto.setId(this.getId());
 
@@ -200,10 +187,15 @@ public class Jugador implements Serializable {
 		dto.setTelefono(this.getTelefono());
 		dto.setEmail(this.getEmail());
 
+		System.out.println("Ejecucio: JugadorDTO toListaBusquedaDTO() ");
+		
 		return dto;
 	}
-
+*/
 	public static Jugador ofDTO(JugadorDTO dto) {
+		
+		System.out.println("Ejecucio:  static Jugador ofDTO(JugadorDTO dto)  ");
+		
 		Jugador entity = new Jugador();
 
 		entity.setId(dto.getId());
@@ -217,9 +209,22 @@ public class Jugador implements Serializable {
 		entity.setNacionalidad(dto.getNacionalidad());
 		entity.setTelefono(dto.getTelefono());
 		entity.setEmail(dto.getEmail());
+		/*
 		if (!Objects.isNull(dto.getEquipo())) {
 			entity.setEquipo(Equipo.ofDTO(dto.getEquipo()));
 		}
+		*/
+		System.out.println("fin Ejecucio:  static Jugador ofDTO(JugadorDTO dto)  ");
+		
 		return entity;
 	}
+
+	@Override
+	public String toString() {
+		return "Jugador [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", fechaDeNacimiento="
+				+ fechaDeNacimiento + ", nroFicha=" + nroFicha + ", nacionalidad=" + nacionalidad + ", telefono="
+				+ telefono + ", email=" + email + ", equipo=" + equipo + "]";
+	}
+	
+	
 }

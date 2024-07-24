@@ -38,25 +38,11 @@ public class Equipo implements Serializable {
 	@JoinColumn(name = "capita_id")
 	private Jugador capitan;
 
-	@OneToMany(mappedBy = "equipo")
+	@OneToMany(mappedBy = "equipo",fetch = FetchType.LAZY)
 	private List<Jugador> jugadores;
 
 	public Equipo() {
-
-	}
-
-	public Equipo(String nombre, String slogan) {
-		super();
-		this.nombre = nombre;
-		this.slogan = slogan;
-	}
-
-	public Equipo(String nombre, String slogan, Jugador capitan, List<Jugador> jugadores) {
-		super();
-		this.nombre = nombre;
-		this.slogan = slogan;
-		this.capitan = capitan;
-		this.jugadores = jugadores;
+super();
 	}
 
 	public String getNombre() {
@@ -106,13 +92,10 @@ public class Equipo implements Serializable {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Equipo [id=" + id + ", nombre=" + nombre + ", slogan=" + slogan + ", capitan=" + capitan
-				+ ", jugadores=" + jugadores + "]";
-	}
 
 	public EquipoDTO toDTO() {
+		System.out.println("Ejecucio:  EquipoDTO toDTO() ");
+		
 		EquipoDTO dto = new EquipoDTO();
 		dto.setId(this.getId());
 		dto.setNombre(this.getNombre());
@@ -123,14 +106,18 @@ public class Equipo implements Serializable {
 		if (!this.getJugadores().isEmpty()) {
 			List<JugadorDTO> jugadores = new ArrayList<>();
 			for (Jugador j : this.getJugadores()) {
-				jugadores.add(j.toDTO());
+				jugadores.add( j.toDTO());
 			}
 			dto.setJugadores(jugadores);
 		}
+		System.out.println("fin Ejecucio:  EquipoDTO toDTO() ");
+		
 		return dto;
 	}
 
 	public EquipoDTO toListaDTO() {
+		
+		System.out.println("Ejecucio: EquipoDTO toListaDTO() ");
 		EquipoDTO dto = new EquipoDTO();
 		dto.setId(this.getId());
 		dto.setNombre(this.getNombre());
@@ -138,6 +125,7 @@ public class Equipo implements Serializable {
 		if (!Objects.isNull(this.getCapitan())) {
 			dto.setCapitan(this.getCapitan());
 		}
+		
 		if (!this.getJugadores().isEmpty()) {
 			List<JugadorDTO> jugadores = new ArrayList<>();
 			for (Jugador j : this.getJugadores()) {
@@ -145,11 +133,16 @@ public class Equipo implements Serializable {
 			}
 			dto.setJugadores(jugadores);
 		}
+
+
+		System.out.println("fin Ejecucio: EquipoDTO toListaDTO() ");
 		return dto;
 	}
 	
 	
 	public static Equipo ofDTO(EquipoDTO dto) {
+		
+		System.out.println("Ejecucio: Equipo ofDTO(EquipoDTO dto) ");
 		Equipo entity = new Equipo();
 		entity.setId(dto.getId());
 		entity.setNombre(dto.getNombre());
@@ -165,7 +158,14 @@ public class Equipo implements Serializable {
 			}
 			entity.setJugadores(jugadores);
 		}
+		System.out.println("fin Ejecucio: Equipo ofDTO(EquipoDTO dto) ");
 		return entity;
+	}
+
+	@Override
+	public String toString() {
+		return "Equipo [id=" + id + ", nombre=" + nombre + ", slogan=" + slogan + ", capitan=" + capitan
+				+ ", jugadores=" + jugadores + "]";
 	}
 	
 }

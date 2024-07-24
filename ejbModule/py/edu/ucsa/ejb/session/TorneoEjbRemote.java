@@ -9,9 +9,7 @@ import py.edu.ucsa.ejb.dto.TorneoDTO;
 public interface TorneoEjbRemote extends GenericEjbRemote<Long, TorneoDTO> {
 
 	public List<TorneoDTO> findAll();
-
 	public void insert(TorneoDTO dto);
-
 	public List<TorneoDTO> findByAno(int ano);
 
 }

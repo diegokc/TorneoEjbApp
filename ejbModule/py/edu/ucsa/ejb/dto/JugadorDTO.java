@@ -17,21 +17,11 @@ public class JugadorDTO implements Serializable{
 	private EquipoDTO equipo;
 	
 	
-	public JugadorDTO() {}
-	
-	public JugadorDTO(Integer id, String nombres, String apellidos, String fechaDeNacimiento, Long nroFicha,
-			String nacionalidad, String telefono, String email, EquipoDTO equipo) {
+	public JugadorDTO() {
 		super();
-		this.id = id;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.fechaDeNacimiento = fechaDeNacimiento;
-		this.nroFicha = nroFicha;
-		this.nacionalidad = nacionalidad;
-		this.telefono = telefono;
-		this.email = email;
-		this.equipo = equipo;
 	}
+	
+
 	public Integer getId() {
 		return id;
 	}

@@ -7,7 +7,7 @@ import py.edu.ucsa.ejb.entities.Partido;
 
 @Named("partidoDAO")
 @RequestScoped
-public class PartidoDaoImpl extends AbstracDao<Long, Partido> implements IPartidoDao {
+public class PartidoDaoImpl extends AbstracDao<Integer, Partido> implements IPartidoDao {
 
 	public PartidoDaoImpl() {
 		super(Partido.class);
@@ -38,7 +38,7 @@ public class PartidoDaoImpl extends AbstracDao<Long, Partido> implements IPartid
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}

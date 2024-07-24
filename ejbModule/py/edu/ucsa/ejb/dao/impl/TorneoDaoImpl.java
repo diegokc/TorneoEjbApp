@@ -7,13 +7,13 @@ import py.edu.ucsa.ejb.entities.Torneo;
 
 @Named("torneoDAO")
 @RequestScoped
-public class TorneoDaoImpl extends AbstracDao<Long, Torneo> implements ITorneoDao {
+public class TorneoDaoImpl extends AbstracDao<Integer, Torneo> implements ITorneoDao {
 
-	/*
+	
 	public TorneoDaoImpl() {
 		super(Torneo.class);
 	}
-	*/
+	
 	public TorneoDaoImpl(Class<Torneo> clazz) {
 		super(clazz);
 		// TODO Auto-generated constructor stub
@@ -38,13 +38,13 @@ public class TorneoDaoImpl extends AbstracDao<Long, Torneo> implements ITorneoDa
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Iterable<Torneo> findByAno(int ano) {
+	public Iterable<Torneo> findByAno(Integer ano) {
 		// TODO Auto-generated method stub
 		return null;
 	}

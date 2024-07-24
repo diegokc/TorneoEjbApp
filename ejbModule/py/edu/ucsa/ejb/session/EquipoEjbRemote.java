@@ -9,9 +9,7 @@ import py.edu.ucsa.ejb.dto.EquipoDTO;
 public interface EquipoEjbRemote extends GenericEjbRemote<Long, EquipoDTO> {
 
 	public List<EquipoDTO> findAll();
-	
 	public void insert(EquipoDTO dto);
-	
 	public List<EquipoDTO> findByNombre(String nombre, boolean isNull);
 
 }

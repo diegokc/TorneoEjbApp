@@ -19,16 +19,10 @@ public class EquipoDTO implements Serializable {
 	
 	
 	public EquipoDTO() {
-		
-	}
-	public EquipoDTO(Integer id, String nombre, String slogan, Jugador capitan, List<JugadorDTO> jugadores) {
 		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.slogan = slogan;
-		this.capitan = capitan;
-		this.jugadores = jugadores;
 	}
+
+
 	public Integer getId() {
 		return id;
 	}

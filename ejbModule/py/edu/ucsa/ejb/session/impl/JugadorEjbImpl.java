@@ -1,6 +1,7 @@
 package py.edu.ucsa.ejb.session.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -20,15 +21,16 @@ public class JugadorEjbImpl implements JugadorEjbRemote {
 	@Inject
 	@Named("jugadorDAO")
 	private IJugadorDao jdao;
-	
-	public JugadorEjbImpl() {}
-	
+
+	public JugadorEjbImpl() {
+	}
+
 	@Override
 	public List<JugadorDTO> findAll() {
 
-		Stream<Jugador> jugadores  = StreamSupport.stream(jdao.findAll().spliterator(),false);
+		Stream<Jugador> jugadores = StreamSupport.stream(jdao.findAll().spliterator(), false);
 		return jugadores.map(Jugador::toListaDTO).toList();
-		
+
 	}
 
 	@Override
@@ -38,40 +40,45 @@ public class JugadorEjbImpl implements JugadorEjbRemote {
 
 	@Override
 	public List<JugadorDTO> findByNombre(String nombre, boolean isNull) {
-		Stream<Jugador> jugadores  = StreamSupport.stream(jdao.findByNombre(nombre,isNull).spliterator(), false);
-		return jugadores.map(Jugador::toListaBusquedaDTO).toList();
+		Stream<Jugador> jugadores = StreamSupport.stream(jdao.findByNombre(nombre, isNull).spliterator(), false);
+		return jugadores.map(Jugador::toListaDTO).toList();
 	}
 
 	@Override
 	public List<JugadorDTO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		Stream<Jugador> jugadores = StreamSupport.stream(jdao.findAll().spliterator(), false);
+		return jugadores.map(Jugador::toListaDTO).toList();
 	}
 
 	@Override
 	public JugadorDTO getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Jugador j = jdao.findById(id);
+
+		if (!Objects.isNull(j))
+			return j.toDTO();
+		else
+			return null;
 	}
 
 	@Override
 	public JugadorDTO insertar(JugadorDTO obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Jugador er = jdao.insert(Jugador.ofDTO(obj));
+		return er.toDTO();
 	}
 
 	@Override
 	public void actualizar(JugadorDTO obj) {
-		// TODO Auto-generated method stub
-		
+		Jugador er = jdao.update(Jugador.ofDTO(obj));
+
 	}
 
 	@Override
 	public void eliminar(int id) {
-		// TODO Auto-generated method stub
-		
+		Jugador j = jdao.findById(id);
+
+		if (!Objects.isNull(j))
+			jdao.delete(j);
+
 	}
 
-	
-	
 }
