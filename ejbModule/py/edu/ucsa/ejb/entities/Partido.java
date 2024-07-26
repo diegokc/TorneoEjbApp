@@ -19,7 +19,7 @@ import py.edu.ucsa.ejb.dto.PartidoDTO;
 
 @Entity
 @Table(name = "partidos")
-@NamedQuery(name = "Partido.findAll", query = " SELECT e FROM Partido e ORDER BY e.torneo.id ASC")
+@NamedQuery(name = "Partido.findAll", query = " SELECT e FROM Partido e ORDER BY e.torneo.id, e.id ASC")
 public class Partido implements Serializable {
 
 	private static final long serialVersionUID = 266429255559612300L;

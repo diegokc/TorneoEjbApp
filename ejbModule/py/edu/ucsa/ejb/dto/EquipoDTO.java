@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import py.edu.ucsa.ejb.entities.Jugador;
-
 public class EquipoDTO implements Serializable {
 
 	private static final long serialVersionUID = -5646141133846236444L;
@@ -14,7 +12,7 @@ public class EquipoDTO implements Serializable {
 	private Integer id;
 	private String nombre;
 	private String slogan;
-	private Jugador capitan;
+	private JugadorDTO capitan;
 	private List<JugadorDTO> jugadores;
 	
 	
@@ -41,10 +39,10 @@ public class EquipoDTO implements Serializable {
 	public void setSlogan(String slogan) {
 		this.slogan = slogan;
 	}
-	public Jugador getCapitan() {
+	public JugadorDTO getCapitan() {
 		return capitan;
 	}
-	public void setCapitan(Jugador capitan) {
+	public void setCapitan(JugadorDTO capitan) {
 		this.capitan = capitan;
 	}
 	public List<JugadorDTO> getJugadores() {

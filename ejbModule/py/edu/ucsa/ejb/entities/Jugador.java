@@ -18,7 +18,7 @@ import py.edu.ucsa.ejb.dto.JugadorDTO;
 
 @Entity
 @Table(name = "jugadores")
-@NamedQuery(name = "Jugador.findAll", query = " SELECT e FROM Jugador e ORDER BY e.nroFicha ASC")
+@NamedQuery(name = "Jugador.findAll", query = " SELECT e FROM Jugador e ORDER BY e.id ASC")
 @NamedQuery(name = "Jugador.findNombre", query = " SELECT e FROM Jugador e ORDER BY e.nroFicha ASC")
 public class Jugador implements Serializable {
 
@@ -138,15 +138,39 @@ public class Jugador implements Serializable {
 		dto.setNacionalidad(this.getNacionalidad());
 		dto.setTelefono(this.getTelefono());
 		dto.setEmail(this.getEmail());
-		/*
+		
+		//funcionaba comentado
+		
 		if (!Objects.isNull(this.getEquipo())) {
-			dto.setEquipo(this.getEquipo().toDTO());
+			dto.setEquipo(this.getEquipo().toPlainDTO());
 		}
-		*/
+		
 		System.out.println("fin Ejecucio: JugadorDTO toDTO() ");
 		return dto;
 	}
 
+	public JugadorDTO toPlainDTO() {
+		
+		System.out.println("Ejecucio: JugadorDTO toPlainDTO() ");
+		
+		JugadorDTO dto = new JugadorDTO();
+		dto.setId(this.getId());
+
+		dto.setNombres(this.getNombres());
+		dto.setApellidos(this.getApellidos());
+		if (!Objects.isNull(this.getFechaDeNacimiento())) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			dto.setFechaDeNacimiento(this.getFechaDeNacimiento().format(formatter));
+		}
+		dto.setNroFicha(this.getNroFicha());
+		dto.setNacionalidad(this.getNacionalidad());
+		dto.setTelefono(this.getTelefono());
+		dto.setEmail(this.getEmail());
+		
+		System.out.println("fin Ejecucio: JugadorDTO toPlainDTO() ");
+		return dto;
+	}
+	
 	public JugadorDTO toListaDTO() {
 		System.out.println("Ejecucio: JugadorDTO toListaDTO() ");
 		
@@ -209,11 +233,11 @@ public class Jugador implements Serializable {
 		entity.setNacionalidad(dto.getNacionalidad());
 		entity.setTelefono(dto.getTelefono());
 		entity.setEmail(dto.getEmail());
-		/*
+		
 		if (!Objects.isNull(dto.getEquipo())) {
-			entity.setEquipo(Equipo.ofDTO(dto.getEquipo()));
+			entity.setEquipo(Equipo.ofPlainDTO(dto.getEquipo()));
 		}
-		*/
+		
 		System.out.println("fin Ejecucio:  static Jugador ofDTO(JugadorDTO dto)  ");
 		
 		return entity;

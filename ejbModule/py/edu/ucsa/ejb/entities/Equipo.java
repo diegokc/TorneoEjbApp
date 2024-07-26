@@ -15,13 +15,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import py.edu.ucsa.ejb.dto.EquipoDTO;
 import py.edu.ucsa.ejb.dto.JugadorDTO;
 
 @Entity
 @Table(name = "equipos")
-@NamedQuery(name = "Equipo.findAll", query = " SELECT e FROM Equipo e ORDER BY e.nombre ASC")
+@NamedQuery(name = "Equipo.findAll", query = " SELECT e FROM Equipo e ORDER BY e.id ASC")
 public class Equipo implements Serializable {
 
 	private static final long serialVersionUID = 2483414604228354037L;
@@ -39,6 +40,7 @@ public class Equipo implements Serializable {
 	private Jugador capitan;
 
 	@OneToMany(mappedBy = "equipo",fetch = FetchType.LAZY)
+	@OrderBy("id ASC")
 	private List<Jugador> jugadores;
 
 	public Equipo() {
@@ -101,8 +103,35 @@ super();
 		dto.setNombre(this.getNombre());
 		dto.setSlogan(this.getSlogan());
 		if (!Objects.isNull(this.getCapitan())) {
-			dto.setCapitan(this.getCapitan());
+			
+			//cambio capitan jugador a jugador dto
+			dto.setCapitan(this.getCapitan().toPlainDTO());
 		}
+		if (!this.getJugadores().isEmpty()) {
+			List<JugadorDTO> jugadores = new ArrayList<>();
+			for (Jugador j : this.getJugadores()) {
+				jugadores.add( j.toPlainDTO());
+			}
+			dto.setJugadores(jugadores);
+		}
+		System.out.println("fin Ejecucio:  EquipoDTO toDTO() ");
+		
+		return dto;
+	}
+	
+	public EquipoDTO toPlainDTO() {
+		System.out.println("Ejecucio:  EquipoDTO toDTO() ");
+		
+		EquipoDTO dto = new EquipoDTO();
+		dto.setId(this.getId());
+		dto.setNombre(this.getNombre());
+		dto.setSlogan(this.getSlogan());
+		if (!Objects.isNull(this.getCapitan())) {
+			
+			//cambio capitan jugador a jugador dto
+			dto.setCapitan(this.getCapitan().toPlainDTO());
+		}
+		/*
 		if (!this.getJugadores().isEmpty()) {
 			List<JugadorDTO> jugadores = new ArrayList<>();
 			for (Jugador j : this.getJugadores()) {
@@ -110,6 +139,7 @@ super();
 			}
 			dto.setJugadores(jugadores);
 		}
+		*/
 		System.out.println("fin Ejecucio:  EquipoDTO toDTO() ");
 		
 		return dto;
@@ -123,13 +153,13 @@ super();
 		dto.setNombre(this.getNombre());
 		dto.setSlogan(this.getSlogan());
 		if (!Objects.isNull(this.getCapitan())) {
-			dto.setCapitan(this.getCapitan());
+			dto.setCapitan(this.getCapitan().toPlainDTO());
 		}
 		
 		if (!this.getJugadores().isEmpty()) {
 			List<JugadorDTO> jugadores = new ArrayList<>();
 			for (Jugador j : this.getJugadores()) {
-				jugadores.add(j.toDTO());
+				jugadores.add(j.toPlainDTO());
 			}
 			dto.setJugadores(jugadores);
 		}
@@ -149,7 +179,8 @@ super();
 		entity.setSlogan(dto.getSlogan());
 		
 		if (!Objects.isNull(dto.getCapitan())) {
-			entity.setCapitan(Jugador.ofDTO(dto.getCapitan().toDTO()));
+			//entity.setCapitan(Jugador.ofDTO(dto.getCapitan().toDTO()));
+			entity.setCapitan(Jugador.ofDTO(dto.getCapitan()));
 		}
 		if (!dto.getJugadores().isEmpty()) {
 			List<Jugador> jugadores = new ArrayList<>();
@@ -159,6 +190,20 @@ super();
 			entity.setJugadores(jugadores);
 		}
 		System.out.println("fin Ejecucio: Equipo ofDTO(EquipoDTO dto) ");
+		return entity;
+	}
+	
+
+	public static Equipo ofPlainDTO(EquipoDTO dto) {
+		
+		System.out.println("Ejecucio: Equipo ofPlainDTO(EquipoDTO dto) ");
+		Equipo entity = new Equipo();
+		entity.setId(dto.getId());
+		entity.setNombre(dto.getNombre());
+		entity.setSlogan(dto.getSlogan());
+		
+		
+		System.out.println("fin Ejecucio: Equipo ofPlainDTO(EquipoDTO dto) ");
 		return entity;
 	}
 

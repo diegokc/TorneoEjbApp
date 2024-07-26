@@ -68,7 +68,11 @@ public class JugadorEjbImpl implements JugadorEjbRemote {
 
 	@Override
 	public void actualizar(JugadorDTO obj) {
-		Jugador er = jdao.update(Jugador.ofDTO(obj));
+		
+		Jugador j = Jugador.ofDTO(obj);
+		System.out.println(j.toString());
+		
+		Jugador er = jdao.update(j);
 
 	}
 
