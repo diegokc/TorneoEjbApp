@@ -26,11 +26,15 @@ public class JugadorDaoImpl extends AbstracDao<Integer, Jugador> implements IJug
 	@Override
 	public Iterable<Jugador> findByNombre(String nombre, boolean isNull) {
 		boolean isBlank = Objects.isNull(nombre) || nombre.isBlank();
+		/*
 		String hql = "SELECT NEW JugadorDTO(j.id,j.nroFicha , j.nombre , j.apellido ,j.nacionalidad) FROM JugadorDTO j" 
 				+ ((isBlank && !isNull) ? "" : "WHERE"
 				+ (!isBlank ? "e.nombre LIKE : nombre" : "")
 				+ (!isBlank && isNull ? "AND" : "")
 				+(isNull? "e.equipo IS NULL" : "" ));
+		*/
+		String hql = "SELECT j FROM Jugador j " 
+								+ ((!isBlank ? " WHERE lower( concat(j.nombres,' ',j.apellidos) ) LIKE lower(:nombre) " : ""));
 		Query query = this.entityManager.createQuery(hql, Jugador.class);
 		if(!isBlank) {
 			query.setParameter("nombre","%"+ nombre +"%" );

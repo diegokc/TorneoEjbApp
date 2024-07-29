@@ -27,11 +27,12 @@ public class EquipoDaoImpl extends AbstracDao<Integer, Equipo> implements IEquip
 	@Override
 	public Iterable<Equipo> findAllByNombre(String nombre, boolean isNull) {
 		boolean isBlank = Objects.isNull(nombre) || nombre.isBlank();
-		String hql = "FROM EquipoDTO e" 
-				+ ((isBlank && !isNull) ? "" : "where"
-				+ (!isBlank ? "e.nombre LIKE : nombre" : "")
-				+ (!isBlank && isNull ? "AND" : "")
-				+(isNull? "e.equipo IS NULL" : "" ));
+		String hql = "Select e FROM Equipo e" 
+				//+ ((isBlank && !isNull) ? "" : " WHERE "
+				+ ((!isBlank ? " WHERE lower(e.nombre) LIKE lower(:nombre) " : "")
+				//+ (!isBlank && isNull ? "AND" : "")
+				//+(isNull? " e.equipo IS NULL " : "" )
+				);
 		Query   query = this.entityManager.createQuery(hql, Equipo.class);
 		if(!isBlank) {
 			query.setParameter("nombre","%"+ nombre +"%" );

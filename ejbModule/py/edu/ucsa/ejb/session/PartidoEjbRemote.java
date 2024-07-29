@@ -9,4 +9,5 @@ import py.edu.ucsa.ejb.dto.PartidoDTO;
 public interface PartidoEjbRemote extends GenericEjbRemote<Long, PartidoDTO> {
 	public List<PartidoDTO> finAll();
 	public void insert(PartidoDTO dto);
+	public List<PartidoDTO> finByTorneo(int torneo);
 }

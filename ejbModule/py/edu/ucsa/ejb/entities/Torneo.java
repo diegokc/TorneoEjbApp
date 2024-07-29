@@ -12,11 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import py.edu.ucsa.ejb.dto.JugadorDTO;
 import py.edu.ucsa.ejb.dto.TorneoDTO;
 
 @Entity
 @Table(name = "torneos")
 @NamedQuery(name = "Torneo.findAll", query = " SELECT e FROM Torneo e ORDER BY e.id ASC")
+@NamedQuery(name = "Torneo.findByAno", query = " SELECT e FROM Torneo e WHERE e.ano = :ano ORDER BY e.id ASC")
 public class Torneo implements Serializable {
 
 	private static final long serialVersionUID = 2149231568156322891L;
@@ -103,6 +105,9 @@ public class Torneo implements Serializable {
 	}
 
 	public TorneoDTO toDTO() {
+		
+		System.out.println("Ejecucio: TorneoDTO toDTO() ");
+		
 		TorneoDTO dto = new TorneoDTO();
 
 		dto.setId(this.getId());
@@ -118,11 +123,14 @@ public class Torneo implements Serializable {
 			dto.setFechaDeFin(this.getFechaDeFin().format(fd));
 		}
 
+		System.out.println("fin Ejecucio: TorneoDTO toDTO() ");
+		
 		return dto;
 
 	}
 	
 	public static Torneo ofDTO(TorneoDTO dto) {
+		System.out.println("Ejecucio:  Torneo ofDTO(TorneoDTO dto) ");
 		Torneo entity = new Torneo();
 		
 		entity.setId(dto.getId());
@@ -135,8 +143,30 @@ public class Torneo implements Serializable {
 		if (!Objects.isNull(dto.getFechaDeFin())) {
 			entity.setFechaDeFin(LocalDate.parse(dto.getFechaDeFin(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		}
-		
+		System.out.println("fin Ejecucio:  Torneo ofDTO(TorneoDTO dto) ");
 		return entity;
 	}
 
+	public TorneoDTO toListaDTO() {
+		System.out.println("Ejecucio: TorneoDTO toListaDTO() ");
+		
+		TorneoDTO dto = new TorneoDTO();
+		dto.setId(this.getId());
+		dto.setAno(this.getAno());
+		dto.setNombre(this.getNombre());
+		dto.setNumeroDeEquipos(this.getNumeroDeEquipos());
+		if (!Objects.isNull(this.getFechaDeInicio())) {
+			DateTimeFormatter fd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			dto.setFechaDeInicio(this.getFechaDeInicio().format(fd));
+		}
+		if (!Objects.isNull(this.getFechaDeFin())) {
+			DateTimeFormatter fd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			dto.setFechaDeFin(this.getFechaDeFin().format(fd));
+		}
+
+		System.out.println("fin Ejecucio: TorneoDTO toListaDTO() ");
+		
+		return dto;
+	}
+	
 }

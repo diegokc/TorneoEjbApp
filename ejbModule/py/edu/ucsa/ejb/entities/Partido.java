@@ -20,6 +20,7 @@ import py.edu.ucsa.ejb.dto.PartidoDTO;
 @Entity
 @Table(name = "partidos")
 @NamedQuery(name = "Partido.findAll", query = " SELECT e FROM Partido e ORDER BY e.torneo.id, e.id ASC")
+@NamedQuery(name = "Partido.findByTorneo", query = " SELECT e FROM Partido e WHERE e.torneo.id = :torneo ORDER BY e.torneo.id, e.id ASC")
 public class Partido implements Serializable {
 
 	private static final long serialVersionUID = 266429255559612300L;
@@ -146,6 +147,9 @@ public class Partido implements Serializable {
 	}
 
 	public PartidoDTO toDTO() {
+		
+		System.out.println("Ejecucio: PartidoDTO toDTO()  ");
+		
 		PartidoDTO dto = new PartidoDTO();
 
 		dto.setId(this.getId());
@@ -171,10 +175,50 @@ public class Partido implements Serializable {
 		dto.setGolesLocal(this.getGolesLocal());
 		dto.setGolesVisitante(this.getGolesVisitante());
 
+		System.out.println("fin Ejecucio: PartidoDTO toDTO()  ");
+		
+		return dto;
+	}
+	
+
+	public PartidoDTO toListaDTO() {
+		
+		System.out.println("Ejecucio:  PartidoDTO toListaDTO() ");
+		
+		PartidoDTO dto = new PartidoDTO();
+
+		dto.setId(this.getId());
+		if (!Objects.isNull(this.getTorneo())) {
+			dto.setTorneo(this.getTorneo().toDTO());
+		}
+		if (!Objects.isNull(this.getEquipoLocal())) {
+			dto.setEquipoLocal(this.getEquipoLocal().toDTO());
+		}
+		if (!Objects.isNull(this.getEquipoVisitante())) {
+			dto.setEquipoVisitante(this.getEquipoVisitante().toDTO());
+		}
+		if (!Objects.isNull(this.getFecha())) {
+			DateTimeFormatter fd = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			dto.setFecha(this.getFecha().format(fd));
+		}
+		if (!Objects.isNull(this.getHora())) {
+			DateTimeFormatter ft = DateTimeFormatter.ofPattern("HH:mm");
+			dto.setHora(this.getHora().format(ft));
+		}
+
+		dto.setNumeroDeFecha(this.getNumeroDeFecha());
+		dto.setGolesLocal(this.getGolesLocal());
+		dto.setGolesVisitante(this.getGolesVisitante());
+
+		System.out.println("fin Ejecucio:  PartidoDTO toListaDTO() ");
+		
 		return dto;
 	}
 
 	public static Partido ofDTO(PartidoDTO dto) {
+		
+		System.out.println("Ejecucio: Partido ofDTO(PartidoDTO dto) ");
+		
 		Partido entity = new Partido();
 
 		entity.setId(dto.getId());
@@ -192,12 +236,14 @@ public class Partido implements Serializable {
 		entity.setFecha(LocalDate.parse(dto.getFecha(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		}
 		if (!Objects.isNull(dto.getHora())) {
-		entity.setHora(LocalDateTime.parse(dto.getFecha()+" "+dto.getHora(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		entity.setHora(LocalDateTime.parse(dto.getFecha()+" "+dto.getHora(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 		}
 		entity.setNumeroDeFecha(dto.getNumeroDeFecha());
 		entity.setGolesLocal(dto.getGolesLocal());
 		entity.setGolesVisitante(dto.getGolesVisitante());
 
+		System.out.println("fin Ejecucio: Partido ofDTO(PartidoDTO dto) ");
+		
 		return entity;
 
 	}

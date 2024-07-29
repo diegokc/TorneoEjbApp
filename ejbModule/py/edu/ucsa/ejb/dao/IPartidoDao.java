@@ -4,4 +4,7 @@ import py.edu.ucsa.ejb.entities.Partido;
 
 public interface IPartidoDao extends IGenericDao<Integer, Partido> {
 	public Iterable<Partido> finByFechaNro(int fechaNro);
+	
+	public Iterable<Partido> finByTorneo(int torneo);
+	
 }

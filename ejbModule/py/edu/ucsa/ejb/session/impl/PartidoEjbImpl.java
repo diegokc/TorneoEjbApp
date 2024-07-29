@@ -1,6 +1,7 @@
 package py.edu.ucsa.ejb.session.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -37,32 +38,47 @@ public class PartidoEjbImpl implements PartidoEjbRemote {
 
 	@Override
 	public List<PartidoDTO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		Stream<Partido> partidos = StreamSupport.stream(dao.findAll().spliterator(), false);
+		return partidos.map(Partido::toListaDTO).toList();
 	}
 
 	@Override
 	public PartidoDTO getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Partido j = dao.findById(id);
+
+		if (!Objects.isNull(j))
+			return j.toDTO();
+		else
+			return null;
 	}
 
 	@Override
 	public PartidoDTO insertar(PartidoDTO obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Partido er = dao.insert(Partido.ofDTO(obj));
+		return er.toDTO();
 	}
 
 	@Override
 	public void actualizar(PartidoDTO obj) {
-		// TODO Auto-generated method stub
+		Partido j = Partido.ofDTO(obj);
+		System.out.println(j.toString());
+		
+		Partido er = dao.update(j);
 		
 	}
 
 	@Override
 	public void eliminar(int id) {
-		// TODO Auto-generated method stub
-		
+		Partido j = dao.findById(id);
+
+		if (!Objects.isNull(j))
+			dao.delete(j);
+	}
+
+	@Override
+	public List<PartidoDTO> finByTorneo(int torneo) {
+		Stream<Partido> partidos = StreamSupport.stream(dao.finByTorneo(torneo).spliterator(), false);
+		return partidos.map(Partido::toListaDTO).toList();
 	}
 
 	

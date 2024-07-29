@@ -2,6 +2,7 @@ package py.edu.ucsa.ejb.dao.impl;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.Query;
 import py.edu.ucsa.ejb.dao.IPartidoDao;
 import py.edu.ucsa.ejb.entities.Partido;
 
@@ -20,33 +21,18 @@ public class PartidoDaoImpl extends AbstracDao<Integer, Partido> implements IPar
 	}
 
 	@Override
-	public Partido insert(Partido entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Partido update(Partido entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Partido entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Iterable<Partido> finByFechaNro(int fechaNro) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	public Iterable<Partido> finByTorneo(int torneo){
+		
+		Query query = this.entityManager.createNamedQuery("Partido.findByTorneo");
+		query.setParameter("torneo",torneo);
+
+		return query.getResultList();
+	}
+
+	
 }

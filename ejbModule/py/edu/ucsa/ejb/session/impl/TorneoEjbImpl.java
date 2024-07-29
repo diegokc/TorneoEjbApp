@@ -1,6 +1,7 @@
 package py.edu.ucsa.ejb.session.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -10,7 +11,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import py.edu.ucsa.ejb.dao.ITorneoDao;
 import py.edu.ucsa.ejb.dto.TorneoDTO;
-
 import py.edu.ucsa.ejb.entities.Torneo;
 import py.edu.ucsa.ejb.session.TorneoEjbRemote;
 
@@ -44,32 +44,40 @@ public class TorneoEjbImpl implements TorneoEjbRemote {
 
 	@Override
 	public List<TorneoDTO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		Stream<Torneo> torneos = StreamSupport.stream(dao.findAll().spliterator(), false);
+		return torneos.map(Torneo::toListaDTO).toList();
 	}
 
 	@Override
 	public TorneoDTO getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Torneo j = dao.findById(id);
+
+		if (!Objects.isNull(j))
+			return j.toDTO();
+		else
+			return null;
 	}
 
 	@Override
 	public TorneoDTO insertar(TorneoDTO obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Torneo er = dao.insert(Torneo.ofDTO(obj));
+		return er.toDTO();
 	}
 
 	@Override
 	public void actualizar(TorneoDTO obj) {
-		// TODO Auto-generated method stub
+		Torneo j = Torneo.ofDTO(obj);
+		System.out.println(j.toString());
 		
+		Torneo er = dao.update(j);
 	}
 
 	@Override
 	public void eliminar(int id) {
-		// TODO Auto-generated method stub
-		
+		Torneo j = dao.findById(id);
+
+		if (!Objects.isNull(j))
+			dao.delete(j);
 	}
 	
 }

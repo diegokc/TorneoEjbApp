@@ -1,8 +1,13 @@
 package py.edu.ucsa.ejb.dao.impl;
 
+import java.util.List;
+import java.util.Objects;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.Query;
 import py.edu.ucsa.ejb.dao.ITorneoDao;
+import py.edu.ucsa.ejb.entities.Jugador;
 import py.edu.ucsa.ejb.entities.Torneo;
 
 @Named("torneoDAO")
@@ -20,33 +25,12 @@ public class TorneoDaoImpl extends AbstracDao<Integer, Torneo> implements ITorne
 	}
 
 	@Override
-	public Torneo insert(Torneo entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Torneo update(Torneo entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Torneo entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Iterable<Torneo> findByAno(Integer ano) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Query query = this.entityManager.createNamedQuery("findByAno");
+		query.setParameter("ano",ano);
+
+		return query.getResultList();
 	}
 
 }

@@ -3,7 +3,7 @@
 ##Exportar la firma del ejb
 
 ~~~
-mvn install:install-file -Dfile=C:\02_JAVADEV\mod3_e\TorneoEjbApp\dist\torneo-dist.jar -DgroupId=py.edu.ucsa.ejb -DartifactId=torneo-dist -Dversion=1.1.2 -Dpackaging=jar
+mvn install:install-file -Dfile=C:\02_JAVADEV\mod3_e\TorneoEjbApp\dist\torneo-dist.jar -DgroupId=py.edu.ucsa.ejb -DartifactId=torneo-dist -Dversion=1.1.4 -Dpackaging=jar
 ~~~
 
 ##Credenciales del Wildfly 32
